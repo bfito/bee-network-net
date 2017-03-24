@@ -8,7 +8,8 @@ const transactionsSchema = new Schema({
   dateStart: Date,
   dateEnd: Date,
   meesage: String,
-  beekeeperID: Number,
+  // Check excercise
+  // beekeeperID: ObjectIds,
   farmID: Number
 });
 

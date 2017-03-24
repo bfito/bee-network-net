@@ -11,8 +11,8 @@ const env          = require('dotenv');
 
 env.config();
 
-// mongoose.connect('mongodb://localhost/bee-network-net');
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect('mongodb://localhost/bee-network-net');
+// mongoose.connect(process.env.MONGODB_URI);
 
 const app = express();
 

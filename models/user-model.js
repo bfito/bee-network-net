@@ -21,11 +21,11 @@ const userSchema = new Schema({
     state: String,
     zipcode: Number,
   },
-  role: {
+  userRole: {
     farm: Boolean,
     beekeeper: Boolean,
-  }
-
+  },
+  owndsHiveFarm: Number,
 });
 
 const User = mongoose.model('User', userSchema);
