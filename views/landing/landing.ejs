@@ -1,0 +1,91 @@
+<nav class="navbar navbar-default navbar-inverse">
+  <div class="container-fluid">
+
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" routerLink="/">B-Network</a>
+    </div>
+
+<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
+    <div class="container">
+      <ul class="nav navbar-nav" routerLinkActive="active">
+        <li class="nav-item"><a class="nav-link"  (click)="loginModal.show()">Log In</a></li>
+        <li class="nav-item"><a class="nav-link"  (click)="registerModal.show()">Register</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="about">About</a></li>
+      </ul>
+    </div>
+</nav>
+
+
+<!-- LOGIN -->
+<div  class="modal fade" bsModal #loginModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">LOGIN</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="loginModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input class="form-control" type="text" name="username" placeholder="username">
+        <input class="form-control" type="password" name="password" placeholder="password">
+
+        <button class='btn btn-primary'>LOGIN</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER START -->
+<div  class="modal fade" bsModal #registerModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">REGISTRATION</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="registerModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="btn-group">
+          <label class="btn btn-success" [(ngModel)]="radioModel" btnRadio="bee" uncheckable>BeeKeeper</label>
+          <label class="btn btn-success" [(ngModel)]="radioModel" btnRadio="farm" uncheckable>Farm</label>
+        </div>
+        <br><br>
+        <input class="form-control" type="text" name="username" placeholder="Username">
+        <input class="form-control" type="password" name="password" placeholder="Password">
+        <input class="form-control" type="text" name="name" placeholder="Full Name">
+
+        <div *ngIf='radioModel == "bee"'>
+          <div class='input-group'>
+            <!-- <input class="form-control" type="text" name="city" placeholder="CITY"> -->
+            <input class="form-control" type="text" name="state" placeholder="STATE">
+          </div>
+          <label for="experience" >Years of experience</label>
+          <input id='experience' class="form-control small-input" type="number" name="experience" placeholder="0" min='0'>
+          <label for="colonies" >How many hives</label>
+          <input id='colonies' class="form-control small-input" type="number" name="hives" placeholder="1" min='0'>
+        </div>
+        <div *ngIf='radioModel == "farm"'>
+          <input class="form-control" type="text" name="farm-name" placeholder="Farm Name">
+          <div class='input-group'>
+            <input class="form-control" type="text" name="city" placeholder="CITY">
+            <input class="form-control" type="text" name="state" placeholder="STATE">
+          </div>
+        </div>
+
+        <button class='btn btn-primary'>SIGNUP</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- REGISTER END-->
