@@ -1,91 +1,256 @@
-<nav class="navbar navbar-default navbar-inverse">
-  <div class="container-fluid">
-
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" routerLink="/">B-Network</a>
-    </div>
-
-<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
-    <div class="container">
-      <ul class="nav navbar-nav" routerLinkActive="active">
-        <li class="nav-item"><a class="nav-link"  (click)="loginModal.show()">Log In</a></li>
-        <li class="nav-item"><a class="nav-link"  (click)="registerModal.show()">Register</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="about">About</a></li>
-      </ul>
-    </div>
-</nav>
+<!DOCTYPE html>
+<!--[if lte IE 9]><html class="no-js is-ie"><![endif]-->
+<!--[if gt IE 8]><!--><html class=no-js><!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 
-<!-- LOGIN -->
-<div  class="modal fade" bsModal #loginModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">LOGIN</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="loginModal.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <input class="form-control" type="text" name="username" placeholder="username">
-        <input class="form-control" type="password" name="password" placeholder="password">
+	<title>Appi - Free Bootstrap Theme</title>
+	<link rel=stylesheet href="public/stylesheets/main.css">
+	<link rel=stylesheet href="public/stylesheets/owl.carousel.css">
+	<link rel=stylesheet href="public/stylesheets/about.css">
 
-        <button class='btn btn-primary'>LOGIN</button>
-      </div>
-    </div>
-  </div>
+	<!--[if lte IE 8]>
+	<link rel=stylesheet href="css/ie.css">
+	<![endif]-->
+		<script src="public/javascript/vendor/modernizr.js"></script>
+
+		<script src="public/javascript/vendor/respond.min.js"></script>
+
+</head>
+
+<body class="page-careers">
+
+<div class="header">
+	<div class="container rel text-left">
+		<a class="brand brand-color" href="index.html">APPI</a>
+
+				<nav class=nav>
+			<ul>
+				<li><a href="index.html">Home</a>
+				<li class="active"><a href="about.html">About</a>
+			</ul>
+		</nav>
+	</div>
 </div>
 
-<!-- REGISTER START -->
-<div  class="modal fade" bsModal #registerModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">REGISTRATION</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="registerModal.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="btn-group">
-          <label class="btn btn-success" [(ngModel)]="radioModel" btnRadio="bee" uncheckable>BeeKeeper</label>
-          <label class="btn btn-success" [(ngModel)]="radioModel" btnRadio="farm" uncheckable>Farm</label>
-        </div>
-        <br><br>
-        <input class="form-control" type="text" name="username" placeholder="Username">
-        <input class="form-control" type="password" name="password" placeholder="Password">
-        <input class="form-control" type="text" name="name" placeholder="Full Name">
 
-        <div *ngIf='radioModel == "bee"'>
-          <div class='input-group'>
-            <!-- <input class="form-control" type="text" name="city" placeholder="CITY"> -->
-            <input class="form-control" type="text" name="state" placeholder="STATE">
-          </div>
-          <label for="experience" >Years of experience</label>
-          <input id='experience' class="form-control small-input" type="number" name="experience" placeholder="0" min='0'>
-          <label for="colonies" >How many hives</label>
-          <input id='colonies' class="form-control small-input" type="number" name="hives" placeholder="1" min='0'>
-        </div>
-        <div *ngIf='radioModel == "farm"'>
-          <input class="form-control" type="text" name="farm-name" placeholder="Farm Name">
-          <div class='input-group'>
-            <input class="form-control" type="text" name="city" placeholder="CITY">
-            <input class="form-control" type="text" name="state" placeholder="STATE">
-          </div>
-        </div>
+<div class="level level-hero hero-careers has-hint">
 
-        <button class='btn btn-primary'>SIGNUP</button>
-      </div>
-    </div>
-  </div>
+	<div class="container full-height">
+
+		<div class="v-align-parent">
+			<div class="v-center">
+				<div class="row">
+					<div class="col-sm-6 col-md-5">
+						<h1 class="mb-30 xs-mb-10 scaled"><span>The Apps Are Changing.</span> <br class="hidden-sm"> Be a Part of It.</h1>
+						<p class="mb-30 xs-mb-20">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+
+						<p><a class="btn btn-prepend btn-shadow btn-scroll" href="#">
+								<i class="prepended icon-arrow-down"></i><span class="btn-txt">Lear More</span>
+							</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<div class="hint-arrow hint-arrow-contrast"></div>
+
 </div>
-<!-- REGISTER END-->
+
+<div class="level no-border">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+				<h1 class="mb-25 sm-mb-20 heading scaled color-dark heading-bordered bordered-above">Neque porro quisquam est qui dolorem ipsum.</h1>
+
+				<h2 class="text-center w-300 color-dark mb-70 sm-mb-40 xs-mb-20">Want to know more?</h2>
+			</div>
+		</div>
+
+		<div class="row mb-60 xs-mb-20">
+
+			<div class="col-sm-6 col-lg-4 col-lg-offset-2 xs-mb-20">
+				<div class="has-icon">
+					<i class="icon icon-laptop"></i>
+					<h3 class="mb-25 md-mb-10">Service Item 1.</h3>
+					<p class="smaller">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+
+
+				</div>
+			</div>
+
+			<div class="col-sm-6 col-lg-4">
+				<div class="has-icon">
+					<i class="icon icon-phone"></i>
+					<h3 class="mb-25 md-mb-10">Service Item 2.</h3>
+					<p class="smaller">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row xs-mb-20">
+
+			<div class="col-sm-6 col-lg-4 col-lg-offset-2 xs-mb-20">
+				<div class="has-icon">
+					<i class="icon icon-flame"></i>
+					<h3 class="mb-25 md-mb-10">Service Item 3.</h3>
+					<p class="smaller">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+
+				</div>
+			</div>
+
+			<div class="col-sm-6 col-lg-4">
+				<div class="has-icon">
+					<i class="icon icon-camera"></i>
+					<h3 class="mb-25 md-mb-10">Service Item 4.</h3>
+					<p class="smaller">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<div class="carousel">
+	<div class="carousel-item" style="background-image: url('img/slide-1.jpg')">
+
+	</div>
+	<div class="carousel-item" style="background-image: url('img/slide-3.jpg')">
+
+	</div>
+	<div class="carousel-item" style="background-image: url('img/slide-2.jpg')">
+
+	</div>
+</div>
+
+<div class="level">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-md-6 text-center">
+				<img src="img/ceo.jpg" width="90%">
+
+			</div>
+
+			<div class="col-md-6">
+				<h2>Conquer your fears</h2>
+				<br/>
+				<br/>
+				<blockquote>
+					There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
+				</blockquote>
+
+				<p>Diana Smith - CEO - BlackTie.co</p>
+			</div>
+
+		</div>
+
+
+	</div>
+
+</div>
+
+
+
+
+
+<div class="footer text-center">
+	<p>
+		<a href="index.html">BLACKTIE.CO</a> | Copyright 2015
+	</p>
+
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+<!-- //-beg- concat_js -->
+<script src="public/javascript/vendor/owl.carousel.min.js"></script>
+<script type="text/javascript" src="public/javascript/bootstrap.min.js"></script>
+<script src="public/javascript/main.js"></script>
+<!-- //-end- concat_js -->
+<script>
+(function(){
+
+
+    var windowWidth = function() {
+        var e = window,
+        a = 'inner';
+
+        if ( !( 'innerWidth' in window ) ) {
+            a = 'client';
+            e = document.documentElement || document.body;
+        }
+        return e[ a+'Width' ];
+    }
+
+    var carouselPadding = function() {
+
+        var limit =  1690;
+        if ( Modernizr.mq("( min-width: " + limit + "px ) ") ) {
+
+            padding = Math.round( ( windowWidth() - limit ) / 2 );
+
+        }
+
+        else {
+
+            padding = 0;
+
+        }
+
+        return padding;
+    };
+
+    var owl = $(".carousel");
+
+    owl.owlCarousel({
+
+        items : 1,
+        loop : true,
+        // margin : 10,
+        nav : false,
+        dots : true,
+        responsive :  {
+            0  : {
+                stagePadding : 0
+            },
+            1690 : {
+                stagePadding : carouselPadding(),
+                margin : 30
+            },
+        }
+    });
+
+    $('.owl-item:not(".active")').on('click', function(e) {
+
+    	if ( $(this).next().is('.active') ) {
+			owl.trigger('next.owl.carousel');
+    	}
+
+    	else {
+			owl.trigger('prev.owl.carousel');
+    	}
+    });
+
+
+}());
+
+
+</script>
+
+
+
+</body>
+</html>
