@@ -322,7 +322,7 @@ h3.txt-tl {
 {
 	padding-right: 0px;
 }
-#contact
+#LogInRegister
 {
 	background-color: #f8f8f8;
 }
@@ -396,7 +396,7 @@ a, a:hover
     line-height: 32px;
     color: #000;
 }
-.contact-icon-container {
+.LogInRegister-icon-container {
     position: absolute;
     top: -38px;
     right: 0;
