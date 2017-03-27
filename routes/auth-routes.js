@@ -1,116 +1,120 @@
-const express   = require('express');
-const router    = express.Router();
-const passport  = require('passport');
-const bcrypt    = require('bcrypt');
-const User      = require('../models/user-model');
+const express = require('express');
+const bcrypt = require('bcrypt');
 
-router.post('/signup', (req,res,next)=>{
+const User = require('../models/user-model.js');
+
+const authRoutes = express.Router();
+
+
+authRoutes.get('/register', (req, res, next) => {
+  // res.render('auth/register-view.ejs');
+  res.render('index');
+
+});
+
+authRoutes.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
-  // const nickname = req.body.nickname;
 
-  if(!username || !password){
-    res.status(400).json({ message: 'Provide username and password'});
+  if (username === '' || password === '') {
+    // res.render('auth/signup-view.ejs', {
+    res.render('index', {
+      errorMessage: 'Please fill out both username and password foo\'!'
+    });
     return;
   }
 
-  //'_id' === { id: 1}
-  User.findOne({ username }, '_id', (err, foundUser) => {
-    console.log("In findOnce");
-    if(err) return res.render('index',{
-      errorLogin: '',
-      errorSignup: 'Something went wrong',
-    });
+  User.findOne(
+    { username: username },
+    { username: 1 },
 
-    if (foundUser){
-      res.render('index',{
-        errorLogin: '',
-        errorSignup: 'User already exists',
+    (err, foundUser) => {
+      if (err) {
+        next(err);
+        return;
+      }
+
+      if (foundUser !== null) {
+        res.render('index', {
+          errorMessage: 'The username already exists'
+        });
+        return;
+      }
+
+      const salt = bcrypt.genSaltSync(10);
+      const hashPass = bcrypt.hashSync(password, salt);
+
+      const userInfo = {
+        username: username,
+        password: hashPass
+      };
+
+      const theUser = new User(userInfo);
+
+      theUser.save((err) => {
+        if (err) {
+          res.render('index', {
+            errorMessage: 'Oops! There was a problem. Try again later.'
+          });
+          return;
+        }
+
+        res.redirect('/');
       });
+    });
+});
+
+
+authRoutes.get('/login', (req, res, next) => {
+  res.render('index');
+});
+
+authRoutes.post('/login', (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  if (username === '' || password === '') {
+    res.render('index', {
+      errorMessage: 'Indicate a username and password to log in.'
+    });
+    return;
+  }
+
+  User.findOne({ username: username }, (err, user) => {
+    if (err) {
+      next(err);
+      return;
     }
 
-    const salt     = bcrypt.genSaltSync(10);
-    const hashPass = bcrypt.hashSync(password, salt);
-
-    const theUser = new User({
-      username,//username: username
-      // nickname, //nickname: nickname
-      password: hashPass
-
-    });
-
-    theUser.save( err =>{
-      console.log("In save");
-
-      if(err) return res.render('index',{
-        errorLogin: '',
-        errorSignup: 'Something went wrong',
+    if (!user) {
+      res.render('index', {
+        errorMessage: 'The username doesn\'t exist'
       });
+      return;
+    }
 
-      req.login(theUser, (err)=>{ //login right away after signup with passport login method
-        if(err) return res.render('index',{
-          errorLogin: '',
-          errorSignup: 'Something went wrong',
-        });
-
-        res.redirect('/house');//req.user is defined because we logged in
+    // This is the more important part of the code to verify password..
+    if (bcrypt.compareSync(password, user.password)) {
+      // Current will have sometingin there if user logged in succesfully.
+      req.session.currentUser = user;
+      res.redirect('/');
+    } else {
+      res.render('index', {
+        errorMessage: 'The password is incorrect'
       });
-    });
+      return;
+    }
   });
 });
 
-router.post('/login', (req,res,next)=>{
-  const passportFunction = passport.authenticate('local', (err,theUser, failureDetails) => {
-
-    if(err) return res.render('index',{
-      errorLogin: 'Something went wrong',
-      errorSignup: '',
-    });
-
-    if(!theUser) return res.render('index',{
-      errorLogin: 'Incorrect username or password',
-      errorSignup: '',
-    });
-
-    req.login(theUser, (err)=>{ //LOGIN
-        if(err) return res.render('index',{
-          errorLogin: 'Something went wrong',
-          errorSignup: '',
-        });
-
-        res.redirect('/landing');
-    });
-
+authRoutes.get('/logout', (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) {
+      next(err);
+      return;
+    }
+    res.redirect('/');
   });
-
-  passportFunction(req,res,next);//call f right after we defined it
 });
 
-router.get('/logout', (req,res,next)=>{
-  req.logout();
-  res.redirect('/');
-});
-
-router.get('/loggedin', (req,res,next)=>{
-
-  if (req.isAuthenticated()) {
-    res.status(200).json(req.user); //The user logged in -> send user info to client
-    return;
-  }
-
-  //User is not logged in
-  res.status(401).json({ message: 'Unauthorized'});
-});
-
-function ensureLoggedIn( req, res, next){
-  if(!req.isAuthenticated()){
-    res.status(403).json({ message: 'FORBIDDEN.'});//Accessing page that requires logging in, and you not logged in
-    return;
-  }
-  next();
-}
-router.get('/private', ensureLoggedIn, (req,res,next)=>{
-  res.json({ message: 'You are lucky'});//you goood to go
-});
-
-module.exports = router;
+module.exports = authRoutes;

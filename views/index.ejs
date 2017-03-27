@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Abjea</title>
+    <title>Abeja</title>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/font-awesome.min.css">
@@ -60,7 +59,9 @@
         <div class="container">
             <div class="row">
                 <div class="cta-info text-center">
-                    <h3><span class="dec-tec">“</span>Everything is designed. Few things are designed well.<span class="dec-tec">”</span> -Brian Reed</h3>
+                    <h3>Einstein, calculated that if all bees disappeared off the earth,</h3>
+                    <h3>four years later all humans would also have disappeared.</h3>
+
                 </div>
             </div>
         </div>
@@ -71,13 +72,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3 wow fadeInLeft delay-05s">
-                    <div class="section-title">
+                    <%# <div class="section-title">
                         <h2 class="head-title">Features</h2>
                         <hr class="botm-line">
                         <p class="sec-para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..</p>
-                    </div>
+                    </div>%>
                 </div>
-                <div class="col-md-9">
+
+                <%# <div class="col-md-12">
                     <div class="col-md-6 wow fadeInRight delay-02s">
                         <div class="icon">
                             <i class="fa fa-paint-brush"></i>
@@ -132,7 +134,7 @@
                             <p class="txt-para">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula felis euismod semper. </p>
                         </div>
                     </div>
-                </div>
+                </div>%>
             </div>
         </div>
     </section>
@@ -148,59 +150,53 @@
                     </div>
                 </div>%>
                 <div class="col-md-12 col-sm-12">
-                    <div class="col-md-4 col-sm-6" style="padding-left:0px;">
-                        <h3 class="cont-title">Log In</h3>
-                        <div id="sendmessage">Your message has been sent. Thank you!</div>
-                        <div id="errormessage"></div>
-                        <div class="LogInRegister-info">
-                            <form action="" method="post" role="form" class="LogInRegisterForm">
-                                <div class="form-group">
-                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                    <div class="validation"></div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                                    <div class="validation"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                                    <div class="validation"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                                    <div class="validation"></div>
-                                </div>
-                                <button type="submit" class="btn btn-send">Send</button>
-                            </form>
-                        </div>
-                    </div>
+                  <div class="col-md-4 col-sm-6" style="padding-left:0px;">
+                      <h3 class="cont-title">Log In</h3>
+                      <div id="sendmessage">Your message has been sent. Thank you!</div>
+                      <div id="errormessage"></div>
+                      <div class="LogInRegister-info">
+                          <form action="/login" method="post" role="form" class="LogInRegisterForm">
+                              <div class="form-group">
+                                  <input type="email" class="form-control" name="username" id="email" placeholder="username"
+                                  data-rule="username" data-msg="Please enter a valid username" />
+                                  <div class="validation"></div>
+                              </div>
+                              <div class="form-group">
+                                  <input type="password" class="form-control" name="password" id="subject" placeholder="Password"
+                                  data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                                  <div class="validation"></div>
+                              </div>
+                              <button type="submit" class="btn btn-send">Send</button>
+                          </form>
+                      </div>
+                  </div>
 
                     <div class="col-md-4 col-sm-6" style="padding-left:0px;">
                         <h3 class="cont-title">Register</h3>
                         <div id="sendmessage">Your message has been sent. Thank you!</div>
                         <div id="errormessage"></div>
                         <div class="LogInRegister-info">
-                            <form action="" method="post" role="form" class="LogInRegisterForm">
+                            <form action="/register" method="post" role="form" class="LogInRegisterForm">
                                 <div class="form-group">
-                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                    <input type="text" name="username" class="form-control" id="username" placeholder="Your Name"
+                                    data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                                     <div class="validation"></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                                    <%# <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                                    <div class="validation"></div>
+                                </div>%>
+
+                                <div class="form-group">
+                                    <input type="password" class="form-control" name="password" id="subject" placeholder="Password"
+                                    data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
                                     <div class="validation"></div>
                                 </div>
 
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                                    <div class="validation"></div>
-                                </div>
-
-                                <div class="form-group">
+                                <%# <div class="form-group">
                                     <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
                                     <div class="validation"></div>
-                                </div>
+                                </div>%>
                                 <button type="submit" class="btn btn-send">Send</button>
                             </form>
                         </div>
@@ -232,7 +228,6 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/wow.js"></script>
     <script src="js/custom.js"></script>
-    <script src="LogInRegisterform/LogInRegisterform.js"></script>
 
   </body>
 </html>

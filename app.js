@@ -39,32 +39,32 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
 
-//-----------------AUTH PASSPORT START
-const session = require('express-session');
-const passport = require('passport');
-
-app.use(session({
-  secret: 'userSession',
-  resave: true,
-  saveUninitialized: true,
-  cookie : { httpOnly: true, maxAge: 2419200000 }
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-//Connect and use passport config file:
-const passportSetup = require('./config/passport');
-passportSetup(passport);
-
-//-----------------AUTH PASSPORT END
+// //-----------------AUTH PASSPORT START
+// const session = require('express-session');
+// const passport = require('passport');
+//
+// app.use(session({
+//   secret: 'userSession',
+//   resave: true,
+//   saveUninitialized: true,
+//   cookie : { httpOnly: true, maxAge: 2419200000 }
+// }));
+//
+// app.use(passport.initialize());
+// app.use(passport.session());
+//
+// //Connect and use passport config file:
+// const passportSetup = require('./config/passport');
+// passportSetup(passport);
+//
+// //-----------------AUTH PASSPORT END
 
 
 const index = require('./routes/index');
-app.use('/', index);
 const auth = require('./routes/auth-routes');
-app.use('/', auth);
 const apiaryFarmsApi = require('./routes/api');
+app.use('/', index);
+app.use('/', auth);
 app.use('/api', apiaryFarmsApi);
 
 //ANGULAR SPA

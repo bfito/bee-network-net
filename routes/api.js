@@ -29,7 +29,7 @@ router.post('/apiaryFarms', (req, res, next) => {
       res.json(err);
       return;
     }
-
+console.log('Inside router por apiaryFarms.save');
     res.json({
       message: 'New ApiaryFarm created!',
       id: theApiaryFarm._id
