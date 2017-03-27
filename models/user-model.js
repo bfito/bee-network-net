@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  userName: {
+  username: {
     type: String,
     required: [true, 'Username required']
   },
@@ -11,21 +11,21 @@ const userSchema = new Schema({
     type: String,
     required: [true, 'Password required']
   },
-  name: {
-    type: String,
-    required: [true, 'Name required']
-  },
-  address: {
-    street: String,
-    city: String,
-    state: String,
-    zipcode: Number,
-  },
-  userRole: {
-    farm: Boolean,
-    beekeeper: Boolean,
-  },
-  owndsHiveFarm: Number,
+  // name: {
+  //   type: String,
+  //   required: [true, 'Name required']
+  // },
+  // address: {
+  //   street: String,
+  //   city: String,
+  //   state: String,
+  //   zipcode: Number,
+  // },
+  // userRole: {
+  //   farm: Boolean,
+  //   beekeeper: Boolean,
+  // },
+  // owndsHiveFarm: Number,
 });
 
 const User = mongoose.model('User', userSchema);

@@ -1,138 +1,116 @@
-const express  = require('express');
-const passport = require('passport');
-const bcrypt   = require('bcrypt');
+const express   = require('express');
+const router    = express.Router();
+const passport  = require('passport');
+const bcrypt    = require('bcrypt');
+const User      = require('../models/user-model');
 
-const User     = require('../models/user');
-
-const authRoutes = express.Router();
-
-authRoutes.post('/', (req, res, next) => {
+router.post('/signup', (req,res,next)=>{
   const username = req.body.username;
   const password = req.body.password;
-  const fullname = req.body.fullname;
+  // const nickname = req.body.nickname;
 
-  if (!username || !password) {
-    res.status(400).json({ message: 'Provide username and password.' });
+  if(!username || !password){
+    res.status(400).json({ message: 'Provide username and password'});
     return;
   }
 
+  //'_id' === { id: 1}
   User.findOne({ username }, '_id', (err, foundUser) => {
-    if (err) {
-      res.status(500).json({ message: 'Something went wrong.' });
-      return;
-    }
+    console.log("In findOnce");
+    if(err) return res.render('index',{
+      errorLogin: '',
+      errorSignup: 'Something went wrong',
+    });
 
-    if (foundUser) {
-      res.status(400).json({ message: 'The username already exists.' });
-      return;
+    if (foundUser){
+      res.render('index',{
+        errorLogin: '',
+        errorSignup: 'User already exists',
+      });
     }
 
     const salt     = bcrypt.genSaltSync(10);
     const hashPass = bcrypt.hashSync(password, salt);
 
-    const theUser  = new User({
-      username,
-      fullname,
-      encryptedPassword: hashPass,
+    const theUser = new User({
+      username,//username: username
+      // nickname, //nickname: nickname
+      password: hashPass
+
     });
 
-    theUser.save((err) => {
-      if (err) {
-        res.status(500).json({ message: 'Something went wrong.' });
-        return;
-      }
+    theUser.save( err =>{
+      console.log("In save");
 
-      req.login(theUser, (err) => {
-        if (err) {
-          res.status(500).json({ message: 'Something went wrong.' });
-          return;
-        }
+      if(err) return res.render('index',{
+        errorLogin: '',
+        errorSignup: 'Something went wrong',
+      });
 
-        res.status(200).json(req.user);
+      req.login(theUser, (err)=>{ //login right away after signup with passport login method
+        if(err) return res.render('index',{
+          errorLogin: '',
+          errorSignup: 'Something went wrong',
+        });
+
+        res.redirect('/house');//req.user is defined because we logged in
       });
     });
   });
 });
 
-// ------------ LOGIN OPTION A ------------
-authRoutes.post('/login', (req, res, next) => {
-  const passportFunction = passport.authenticate('local',
-    (err, theUser, failureDetails) => {
-      if (err) {
-        res.status(500).json({ message: 'Something went wrong.' });
-        return;
-      }
+router.post('/login', (req,res,next)=>{
+  const passportFunction = passport.authenticate('local', (err,theUser, failureDetails) => {
 
-      if (!theUser) {
-        res.status(401).json(failureDetails);
-        return;
-      }
+    if(err) return res.render('index',{
+      errorLogin: 'Something went wrong',
+      errorSignup: '',
+    });
 
-      req.login(theUser, (err) => {
-        if (err) {
-          res.status(500).json({ message: 'Something went wrong.' });
-          return;
-        }
+    if(!theUser) return res.render('index',{
+      errorLogin: 'Incorrect username or password',
+      errorSignup: '',
+    });
 
-        res.status(200).json(req.user);
-      });
-    }
-  );
+    req.login(theUser, (err)=>{ //LOGIN
+        if(err) return res.render('index',{
+          errorLogin: 'Something went wrong',
+          errorSignup: '',
+        });
 
-  passportFunction(req, res, next);
+        res.redirect('/landing');
+    });
+
+  });
+
+  passportFunction(req,res,next);//call f right after we defined it
 });
 
-// ------------ LOGIN OPTION B ------------
-// authRoutes.post('/login', (req, res, next) => {
-//   passport.authenticate('local', (err, theUser, failureDetails) => {
-//     if (err) {
-//       res.status(500).json({ message: 'Something went wrong.' });
-//       return;
-//     }
-//
-//     if (!theUser) {
-//       res.status(401).json(failureDetails);
-//       return;
-//     }
-//
-//     req.login(theUser, (err) => {
-//       if (err) {
-//         res.status(500).json({ message: 'Something went wrong.' });
-//         return;
-//       }
-//
-//       res.status(200).json(req.user);
-//     });
-//   })(req, res, next);
-// });
-
-authRoutes.post('/logout', (req, res, next) => {
+router.get('/logout', (req,res,next)=>{
   req.logout();
-  res.status(200).json({ message: 'Success.' });
+  res.redirect('/');
 });
 
-authRoutes.get('/loggedin', (req, res, next) => {
+router.get('/loggedin', (req,res,next)=>{
+
   if (req.isAuthenticated()) {
-    res.status(200).json(req.user);
+    res.status(200).json(req.user); //The user logged in -> send user info to client
     return;
   }
 
-  res.status(401).json({ message: 'Unauthorized.' });
+  //User is not logged in
+  res.status(401).json({ message: 'Unauthorized'});
 });
 
-
-function gtfoIfNotLogged (req, res, next) {
-  if (!req.isAuthenticated()) {
-    res.status(403).json({ message: 'FORBIDDEN.' });
+function ensureLoggedIn( req, res, next){
+  if(!req.isAuthenticated()){
+    res.status(403).json({ message: 'FORBIDDEN.'});//Accessing page that requires logging in, and you not logged in
     return;
   }
-
   next();
 }
-
-authRoutes.get('/private', gtfoIfNotLogged, (req, res, next) => {
-  res.json({ message: 'Todays lucky number is 7677' });
+router.get('/private', ensureLoggedIn, (req,res,next)=>{
+  res.json({ message: 'You are lucky'});//you goood to go
 });
 
-
-module.exports = authRoutes;
+module.exports = router;

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const transactionsSchema = new Schema({
+const transactionSchema = new Schema({
   // transactionNumber: Number,
   location: String,
   dateStart: Date,

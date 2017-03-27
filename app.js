@@ -6,15 +6,22 @@ const cookieParser = require('cookie-parser');
 const bodyParser   = require('body-parser');
 const layouts      = require('express-ejs-layouts');
 const mongoose     = require('mongoose');
-const env          = require('dotenv');
+const dotenv       = require('dotenv');
+const cors         = require('cors');
 
+const ensure = require('connect-ensure-login');
 
-env.config();
+//env
+dotenv.config();
 
-mongoose.connect('mongodb://localhost/bee-network-net');
 // mongoose.connect(process.env.MONGODB_URI);
-
+mongoose.connect('mongodb://localhost/bee-network-net');
 const app = express();
+
+require('./config/api');
+
+//use cors
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,8 +39,40 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
 
+//-----------------AUTH PASSPORT START
+const session = require('express-session');
+const passport = require('passport');
+
+app.use(session({
+  secret: 'userSession',
+  resave: true,
+  saveUninitialized: true,
+  cookie : { httpOnly: true, maxAge: 2419200000 }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Connect and use passport config file:
+const passportSetup = require('./config/passport');
+passportSetup(passport);
+
+//-----------------AUTH PASSPORT END
+
+
 const index = require('./routes/index');
 app.use('/', index);
+const auth = require('./routes/auth-routes');
+app.use('/', auth);
+// const api = require('./routes/api');
+// app.use('/api', api);
+
+//ANGULAR SPA
+app.use(ensure.ensureLoggedIn());
+
+app.use((req,res,next)=>{
+  res.sendfile(__dirname + '/public/index.html');
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
