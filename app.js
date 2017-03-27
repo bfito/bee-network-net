@@ -64,7 +64,7 @@ const index = require('./routes/index');
 app.use('/', index);
 const auth = require('./routes/auth-routes');
 app.use('/', auth);
-const api = require('./routes/api');
+const apiaryFarmsApi = require('./routes/api');
 app.use('/api', apiaryFarmsApi);
 
 //ANGULAR SPA
