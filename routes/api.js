@@ -1,7 +1,9 @@
-var express = require('express');
+const express = require('express');
+const mongoose = require('mongoose');
+const ApiaryFarm = require('../models/apiary-farm-model');
+
 var router = express.Router();
 
-const ApiaryFarm = require('../models/apiary-farm-model');
 
 /* GET ApiaryFarms listing. */
 router.get('/apiaryFarms', (req, res, next) => {

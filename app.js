@@ -18,7 +18,7 @@ dotenv.config();
 mongoose.connect('mongodb://localhost/bee-network-net');
 const app = express();
 
-require('./config/api');
+// require('./config/api');
 
 //use cors
 app.use(cors());
