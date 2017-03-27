@@ -37,4 +37,47 @@ console.log('Inside router por apiaryFarms.save');
   });
 });
 
+
+
+router.put('/apiaryFarms/:id', (req, res, next) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400)
+      .json({ message: 'Specified id is not valid' });
+      return;
+  }
+
+  const updates = {
+    name: req.body.name,
+    state: req.body.state,
+  };
+
+  ApiaryFarm.findByIdAndUpdate(req.params.id, updates, (err) => {
+    if (err) {
+      res.json(err);
+      return;
+    }
+    res.json({
+      message: "Updated!"
+    });
+  });
+});
+
+/* GET a single User. */
+router.get('/phones/:id', (req, res) => {
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+
+  User.findById(req.params.id, (err, theUser) => {
+      if (err) {
+        res.json(err);
+        return;
+      }
+      res.json(theUser);
+    });
+});
+
+
+
 module.exports = router;

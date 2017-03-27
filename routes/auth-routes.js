@@ -95,7 +95,7 @@ authRoutes.post('/login', (req, res, next) => {
 
     // This is the more important part of the code to verify password..
     if (bcrypt.compareSync(password, user.password)) {
-      // Current will have sometingin there if user logged in succesfully.
+      // Current will have something there if user logged in succesfully.
       req.session.currentUser = user;
       res.redirect('/');
     } else {
@@ -105,7 +105,11 @@ authRoutes.post('/login', (req, res, next) => {
       return;
     }
   });
+
+  
 });
+
+
 
 authRoutes.get('/logout', (req, res, next) => {
   req.session.destroy((err) => {
