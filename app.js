@@ -20,8 +20,6 @@ const app = express();
 
 // require('./config/api');
 
-//use cors
-app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,6 +36,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
+//use cors
+app.use(cors());
 
 // //-----------------AUTH PASSPORT START
 // const session = require('express-session');
@@ -58,14 +58,14 @@ app.use(layouts);
 // passportSetup(passport);
 //
 // //-----------------AUTH PASSPORT END
+const apiaryFarmsApi = require('./routes/api');
+app.use('/api', apiaryFarmsApi);
 
 
 const index = require('./routes/index');
 const auth = require('./routes/auth-routes');
-const apiaryFarmsApi = require('./routes/api');
 app.use('/', index);
 app.use('/', auth);
-app.use('/api', apiaryFarmsApi);
 
 //ANGULAR SPA
 app.use(ensure.ensureLoggedIn());

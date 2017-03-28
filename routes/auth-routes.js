@@ -1,14 +1,15 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-
-const User = require('../models/user-model.js');
+const express   = require('express');
+const bcrypt    = require('bcrypt');
+const passport  = require('passport');
+const User      = require('../models/user-model.js');
 
 const authRoutes = express.Router();
 
 
 authRoutes.get('/register', (req, res, next) => {
   // res.render('auth/register-view.ejs');
-  res.render('index');
+  // res.render('index');
+  res.render('public/index.html');
 
 });
 
@@ -66,49 +67,77 @@ authRoutes.post('/register', (req, res, next) => {
 
 
 authRoutes.get('/login', (req, res, next) => {
-  res.render('index');
+  // res.render('index');
+  res.render('public/index.html');
+
 });
 
-authRoutes.post('/login', (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
+// authRoutes.post('/login', (req, res, next) => {
+//   const username = req.body.username;
+//   const password = req.body.password;
+//
+//   if (username === '' || password === '') {
+//     res.render('index', {
+//       errorMessage: 'Indicate a username and password to log in.'
+//     });
+//     return;
+//   }
+//
+//   User.findOne({ username: username }, (err, user) => {
+//     if (err) {
+//       next(err);
+//       return;
+//     }
+//
+//     if (!user) {
+//       res.render('index', {
+//         errorMessage: 'The username doesn\'t exist'
+//       });
+//       return;
+//     }
+//
+//     // This is the more important part of the code to verify password..
+//     if (bcrypt.compareSync(password, user.password)) {
+//       // Current will have something there if user logged in succesfully.
+//       req.session.currentUser = user;
+//       res.redirect('/');
+//     } else {
+//       res.render('index', {
+//         errorMessage: 'The password is incorrect'
+//       });
+//       return;
+//     }
+//   });
+//
+//
+// });
 
-  if (username === '' || password === '') {
-    res.render('index', {
-      errorMessage: 'Indicate a username and password to log in.'
+authRoutes.post('/login', (req,res,next)=>{
+  const passportFunction = passport.authenticate('local', (err,theUser, failureDetails) => {
+
+    if(err) return res.render('/index',{
+      errorLogin: 'Something went wrong',
+      errorSignup: '',
     });
-    return;
-  }
 
-  User.findOne({ username: username }, (err, user) => {
-    if (err) {
-      next(err);
-      return;
-    }
+    if(!theUser) return res.render('/index',{
+      errorLogin: 'Incorrect username or password',
+      errorSignup: '',
+    });
 
-    if (!user) {
-      res.render('index', {
-        errorMessage: 'The username doesn\'t exist'
-      });
-      return;
-    }
+    req.login(theUser, (err)=>{ //LOGIN
+        if(err) return res.render('/index',{
+          errorLogin: 'Something went wrong',
+          errorSignup: '',
+        });
 
-    // This is the more important part of the code to verify password..
-    if (bcrypt.compareSync(password, user.password)) {
-      // Current will have something there if user logged in succesfully.
-      req.session.currentUser = user;
-      res.redirect('/');
-    } else {
-      res.render('index', {
-        errorMessage: 'The password is incorrect'
-      });
-      return;
-    }
+        res.redirect('/public/index.html');
+    });
+
   });
 
-  
+  passportFunction(req,res,next);//call f right after we defined it
 });
-
 
 
 authRoutes.get('/logout', (req, res, next) => {
