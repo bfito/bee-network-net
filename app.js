@@ -37,18 +37,24 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
 //use cors
-app.use(cors());
+// app.use(cors());
+if (process.env.NODE_ENV !== 'production') {
+  app.use(cors({
+    credentials: true,
+    origin: ['http://localhost:4200', 'http://localhost:8000']
+  }));
+}
 
 // //-----------------AUTH PASSPORT START
-// const session = require('express-session');
+const session = require('express-session');
 // const passport = require('passport');
 //
-// app.use(session({
-//   secret: 'userSession',
-//   resave: true,
-//   saveUninitialized: true,
-//   cookie : { httpOnly: true, maxAge: 2419200000 }
-// }));
+app.use(session({
+  secret: 'userSession',
+  resave: true,
+  saveUninitialized: true,
+  cookie : { httpOnly: true, maxAge: 2419200000 }
+}));
 //
 // app.use(passport.initialize());
 // app.use(passport.session());
