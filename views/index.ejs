@@ -178,26 +178,32 @@
                         <div id="errormessage"></div>
                         <div class="LogInRegister-info">
                             <form action="/register" method="post" role="form" class="LogInRegisterForm">
+
+          <div class="btn-group" data-toggle="buttons">
+        
+            <label class="btn btn-primary">
+              <input type="checkbox" autocomplete="off"> Checkbox 2
+            </label>
+            <label class="btn btn-primary">
+              <input type="checkbox" autocomplete="off"> Checkbox 3
+            </label>
+          </div>
+
                                 <div class="form-group">
                                     <input type="text" name="username" class="form-control" id="username" placeholder="Your Name"
                                     data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                                     <div class="validation"></div>
                                 </div>
                                 <div class="form-group">
-                                    <%# <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
                                     <div class="validation"></div>
-                                </div>%>
+                                </div>
 
                                 <div class="form-group">
                                     <input type="password" class="form-control" name="password" id="subject" placeholder="Password"
                                     data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
                                     <div class="validation"></div>
                                 </div>
-
-                                <%# <div class="form-group">
-                                    <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                                    <div class="validation"></div>
-                                </div>%>
                                 <button type="submit" class="btn btn-send">Send</button>
                             </form>
                         </div>

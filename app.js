@@ -66,7 +66,8 @@ app.use(session({
 // //-----------------AUTH PASSPORT END
 const apiaryFarmsApi = require('./routes/api');
 app.use('/api', apiaryFarmsApi);
-
+const listingApi = require('./routes/api');
+app.use('/api', listingApi);
 
 const index = require('./routes/index');
 const auth = require('./routes/auth-routes');
