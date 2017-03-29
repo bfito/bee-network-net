@@ -4,13 +4,10 @@ const Schema = mongoose.Schema;
 
 const listingSchema = new Schema({
   // listingNumber: Number,
-    Author: Number,
-    // name:      '',
-    // location:  '',
-    // postDate:  '',
-    // startDate: '',
-    // endDate:   '',
-    // message:   '',
+    FarmApiary: String,
+    StartDate: Date,
+    EndDate: Date,
+    Email: String,
     Address: String,
     City: String,
     State: String,

@@ -9,7 +9,7 @@ const authRoutes = express.Router();
 authRoutes.get('/register', (req, res, next) => {
   // res.render('auth/register-view.ejs');
   // res.render('index');
-  res.render('public/index.html');
+  res.render('public/index');
 
 });
 
@@ -68,7 +68,7 @@ authRoutes.post('/register', (req, res, next) => {
 
 authRoutes.get('/login', (req, res, next) => {
   // res.render('index');
-  res.render('public/index.html');
+  res.render('index');
 
 });
 
@@ -118,7 +118,7 @@ authRoutes.get('/loggedin', (req, res, next) => {
   if (req.session.currentUser) {
     res.status(200).json(req.session.currentUser);
     return;
-    console.log(currentUser);
+    // console.log(currentUser);
   }
   res.status(401).json({ message: 'Unauthorized.' });
 });
