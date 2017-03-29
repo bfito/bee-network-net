@@ -74,6 +74,7 @@ authRoutes.get('/login', (req, res, next) => {
 
 authRoutes.post('/login', (req, res, next) => {
   const username = req.body.username;
+  const email    = req.body.email;
   const password = req.body.password;
 
   if (username === '' || password === '') {
