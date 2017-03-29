@@ -14,8 +14,8 @@ const ensure = require('connect-ensure-login');
 //env
 dotenv.config();
 
-// mongoose.connect(process.env.MONGODB_URI);
-mongoose.connect('mongodb://localhost/bee-network-net');
+mongoose.connect(process.env.MONGODB_URI);
+// mongoose.connect('mongodb://localhost/bee-network-net');
 const app = express();
 
 // require('./config/api');
@@ -69,9 +69,9 @@ app.use('/api', apiaryFarmsApi);
 const listingApi = require('./routes/api');
 app.use('/api', listingApi);
 
-const index = require('./routes/index');
+// const index = require('./routes/index');
 const auth = require('./routes/auth-routes');
-app.use('/', index);
+// app.use('/', index);
 app.use('/', auth);
 
 //ANGULAR SPA
