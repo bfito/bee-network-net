@@ -9,13 +9,14 @@ const authRoutes = express.Router();
 authRoutes.get('/register', (req, res, next) => {
   // res.render('auth/register-view.ejs');
   // res.render('index');
-  res.render('public/index');
+  res.render('index');
 
 });
 
 authRoutes.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
+  const email    = req.body.email;
 
   if (username === '' || password === '') {
     // res.render('auth/signup-view.ejs', {
@@ -47,7 +48,8 @@ authRoutes.post('/register', (req, res, next) => {
 
       const userInfo = {
         username: username,
-        password: hashPass
+        password: hashPass,
+        email: email
       };
 
       const theUser = new User(userInfo);
@@ -59,7 +61,6 @@ authRoutes.post('/register', (req, res, next) => {
           });
           return;
         }
-
         res.redirect('/');
       });
     });
@@ -74,7 +75,7 @@ authRoutes.get('/login', (req, res, next) => {
 
 authRoutes.post('/login', (req, res, next) => {
   const username = req.body.username;
-  const email    = req.body.email;
+  // const email    = req.body.email;
   const password = req.body.password;
 
   if (username === '' || password === '') {
