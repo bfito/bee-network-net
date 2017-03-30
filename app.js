@@ -9,7 +9,6 @@ const mongoose     = require('mongoose');
 const dotenv       = require('dotenv');
 const cors         = require('cors');
 
-const ensure = require('connect-ensure-login');
 
 //env
 dotenv.config();
@@ -74,8 +73,18 @@ const auth = require('./routes/auth-routes');
 // app.use('/', index);
 app.use('/', auth);
 
+
+// replaced passport ensureLoggedIn
+const ensure = (req, res, next) => {
+  if (!req.session.currentuser) {
+    res.redirect('/login');
+  }
+  else {
+    next();
+  }
+};
 //ANGULAR SPA
-app.use(ensure.ensureLoggedIn());
+app.use(ensure);
 
 app.use((req,res,next)=>{
   res.sendfile(__dirname + '/public/angular.html');
