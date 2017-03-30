@@ -76,7 +76,7 @@ app.use('/', auth);
 
 // replaced passport ensureLoggedIn
 const ensure = (req, res, next) => {
-  if (!req.session.currentuser) {
+  if (!req.session.currentUser) {
     res.redirect('/login');
   }
   else {
